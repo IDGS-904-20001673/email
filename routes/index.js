@@ -22,7 +22,7 @@ router.post('/send-email', function (req, res, next) {
   }
   const mailOptions = {
     from: 'reymacorreosweb@gmail.com',
-    to: 'ml.varama12@gmail.com',
+    to: 'reyma.mkt@gmail.com',
     subject: `${req.body.subject}`,
     text: `
       Nombre: ${req.body.name},\n
