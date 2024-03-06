@@ -3,11 +3,15 @@ var router = express.Router();
 const { createTransport } = require('nodemailer');
 
 const transporter = createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
+  host: "mail.reyma.com.mx",
+  port: 465,
   auth: {
-      user: "reymacorreosweb@gmail.com",
-      pass: "yrphzcjtipkqwdpj",
+      user: "atencion.cliente@plazarella.com.mx",
+      pass: "IiGR1nYql4#R",
+  },
+  secure: true,
+  tls: {
+    rejectUnauthorized: false,
   },
 });
 
@@ -21,8 +25,8 @@ router.post('/send-email', function (req, res, next) {
     return ;
   }
   const mailOptions = {
-    from: 'reymacorreosweb@gmail.com',
-    to: 'reyma.mkt@gmail.com',
+    from: 'atencion.cliente@plazarella.com.mx',
+    to: 'ml.varama12@gmail.com',
     subject: `${req.body.subject}`,
     text: `
       Nombre: ${req.body.name},\n
