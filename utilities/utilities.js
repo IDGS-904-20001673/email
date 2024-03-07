@@ -72,7 +72,7 @@ function configuracionGenerica(user, pass) {
         return;
     }
     const mailOptions = {
-        from: 'fromVar',
+        from: fromVar,
         to: 'robledoleonel25@gmail.com',
         subject: `${req.body.subject}`,
         text: `
