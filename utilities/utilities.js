@@ -83,6 +83,13 @@ function configuracionGenerica(user, pass) {
             Mensaje: ${req.body.message},\n
         `,
     };
+
+    if (fromVar.includes('plazarella')){
+        mailOptions.to += ', investigacion.mkt@reyma.com.mx'
+    }else if (fromVar.includes('tiretop')){
+        mailOptions.to += ', ventas02@tiretop.com.mx'
+    }
+
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             res.send({ success: false, error: error });
