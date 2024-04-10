@@ -48,9 +48,9 @@ const { createTransport } = require('nodemailer');
 
 function configuracionGenerica(user, pass) {
     return createTransport({
-      host: "mail.reyma.com.mx",
-      port: 465,
-      auth: {
+        host: "mail.reyma.com.mx",
+        port: 465,
+        auth: {
             user: user,
             pass: pass,
         },
@@ -59,10 +59,10 @@ function configuracionGenerica(user, pass) {
             rejectUnauthorized: false,
         },
     });
-  }
-  
-  
-  function sendEmail(req, res, next, transporter,fromVar) {
+}
+
+
+function sendEmail(req, res, next, transporter, fromVar) {
     if (!req.body) {
         res.send({ success: false, error: 'No data in body' });
         return;
@@ -84,9 +84,9 @@ function configuracionGenerica(user, pass) {
         `,
     };
 
-    if (fromVar.includes('plazarella')){
+    if (fromVar.includes('plazarella')) {
         mailOptions.to += ', investigacion.mkt@reyma.com.mx'
-    }else if (fromVar.includes('tiretop')){
+    } else if (fromVar.includes('tiretop')) {
         mailOptions.to += ', ventas02@tiretop.com.mx'
     }
 
@@ -98,11 +98,11 @@ function configuracionGenerica(user, pass) {
             res.send({ success: true, message: 'Email sent: ' + info.response })
         }
     });
-  }
+}
 
 
 
-  function sendEmailContact(req, res, next, transporter,fromVar) {
+function sendEmailContact(req, res, next, transporter, fromVar) {
     if (!req.body) {
         res.send({ success: false, error: 'No data in body' });
         return;
@@ -111,11 +111,26 @@ function configuracionGenerica(user, pass) {
         res.send({ success: false, error: 'Missing Data in Bodys' });
         return;
     }
+
+    const htmlBody = `
+
+  
+    <div style="text-align: center;">
+        <h2 style="margin-bottom: 50px; color: black;">Gracias por ser partícipe de este gran evento. ¡Te esperamos el
+            28 de abril a partir de las 10 am en las
+            instalaciones de Plazarella!</h2>
+            <a style="font-size: 20px; color: #ffffff; background-color: #f18425; text-decoration: none; padding: 30px;" href="https://plazarella.com" target="_blank">Visita plazarella.com</a>
+        <br>
+        <img style="margin-top: 50px;"
+            src="https://plazarella.com/assets/dia-del-nino/PlazarellaFestDiadelNino28deAbril.png" alt="Plazarella">
+    </div>
+`;
+
     const mailOptions = {
         from: fromVar,
         to: `${req.body.contact}`,
         subject: 'Gracias por ser parte de Kids Plazarella Fest 2024',
-        text: 'Gracias por ser partícipe de este gran evento. ¡Te esperamos el 28 de abril a partir de las 10 am en las instalaciones de Plazarella!',
+        html: htmlBody,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -126,11 +141,11 @@ function configuracionGenerica(user, pass) {
             res.send({ success: true, message: 'Email sent: ' + info.response })
         }
     });
-  }
+}
 
 
 
-  module.exports = {
+module.exports = {
     configuracionGenerica,
     sendEmail,
     sendEmailContact
