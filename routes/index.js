@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const {
   configuracionGenerica,
-  sendEmail
+  sendEmail,
+  sendEmailContact
 } = require('../utilities/utilities')
 
 
@@ -34,6 +35,12 @@ router.post('/reyma', function (req, res, next) {
   sendEmail(req, res, next, transporter,fromVar);
 });
 
+
+router.post('/plazarellaContact', function (req, res, next) {
+  const transporter = configuracionGenerica("atencion.cliente@plazarella.com.mx", "IiGR1nYql4#R");
+  let fromVar = "atencion.cliente@plazarella.com.mx";
+  sendEmailContact(req, res, next, transporter,fromVar);
+});
 
 
 

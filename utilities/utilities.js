@@ -102,7 +102,36 @@ function configuracionGenerica(user, pass) {
 
 
 
+  function sendEmailContact(req, res, next, transporter,fromVar) {
+    if (!req.body) {
+        res.send({ success: false, error: 'No data in body' });
+        return;
+    }
+    if (!req.body.contact) {
+        res.send({ success: false, error: 'Missing Data in Bodys' });
+        return;
+    }
+    const mailOptions = {
+        from: fromVar,
+        to: `${req.body.contact}`,
+        subject: 'Gracias por ser parte de Kids Plazarella Fest 2024',
+        text: 'Gracias por ser partícipe de este gran evento. ¡Te esperamos el 28 de abril a partir de las 10 am en las instalaciones de Plazarella!',
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            res.send({ success: false, error: error });
+            return;
+        } else {
+            res.send({ success: true, message: 'Email sent: ' + info.response })
+        }
+    });
+  }
+
+
+
   module.exports = {
     configuracionGenerica,
-    sendEmail
+    sendEmail,
+    sendEmailContact
 };
